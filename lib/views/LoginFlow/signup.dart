@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pirai_code_challenge/animation/fade_animation.dart';
-import 'package:pirai_code_challenge/models/user_model.dart';
 import 'package:pirai_code_challenge/services/auth_service.dart';
-import 'package:provider/provider.dart';
 
 import 'login.dart';
 
@@ -32,7 +30,6 @@ class _SingupState extends State<Singup> {
 
   @override
   void initState() {
-    Provider.of<UserModel>(context).addListener(() {});
     super.initState();
   }
 
@@ -51,7 +48,6 @@ class _SingupState extends State<Singup> {
     var we = MediaQuery.of(context).size.width;
     var he = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: const Color(0xFF1F1A30),
       body: SingleChildScrollView(
         child: SizedBox(
           width: we,
