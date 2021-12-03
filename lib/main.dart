@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         navigatorKey: navigatorKey,
         title: 'EuCart',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          scaffoldBackgroundColor: const Color(0xFF1F1A30),
         ),
         home: SplashScreen(),
         routes: {

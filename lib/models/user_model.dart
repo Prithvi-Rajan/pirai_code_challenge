@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:pirai_code_challenge/main.dart';
@@ -5,7 +7,9 @@ import 'package:pirai_code_challenge/views/LoginFlow/login.dart';
 import 'package:pirai_code_challenge/views/Products/product_view.dart';
 
 class UserModel extends ChangeNotifier {
-  late User? _currentUser;
+  User? _currentUser;
+
+  StreamSubscription<User?>? _authStream;
 
   User? get currentUser {
     if (_currentUser == null) return null;
@@ -17,12 +21,17 @@ class UserModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addAuthStateListener() {
-    FirebaseAuth.instance.authStateChanges().listen((event) {
+  Future<void> addAuthStateListener() async {
+    await _authStream?.cancel();
+    _authStream = FirebaseAuth.instance.authStateChanges().listen((event) {
       if (event == null) {
+        _currentUser = event;
+        notifyListeners();
         navigatorKey.currentState
             ?.pushNamedAndRemoveUntil(LoginView.routeName, (route) => false);
       } else {
+        _currentUser = event;
+        notifyListeners();
         navigatorKey.currentState
             ?.pushNamedAndRemoveUntil(ProductView.routeName, (route) => false);
       }

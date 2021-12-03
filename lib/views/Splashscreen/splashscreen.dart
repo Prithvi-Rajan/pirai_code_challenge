@@ -24,7 +24,6 @@ class _SplashScreenState extends State<SplashScreen> {
     var we = MediaQuery.of(context).size.width;
     var he = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: const Color(0xFF1F1A30),
       body: Center(
         child: SingleChildScrollView(
           child: SizedBox(
