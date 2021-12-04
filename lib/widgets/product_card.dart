@@ -1,10 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:pirai_code_challenge/models/cart_model.dart';
 import 'package:pirai_code_challenge/models/product_model.dart';
+import 'package:provider/provider.dart';
 
 class ProductCard extends StatefulWidget {
   final ProductModel product;
-  const ProductCard({Key? key, required this.product}) : super(key: key);
+  final isInCart;
+  const ProductCard({Key? key, required this.product, this.isInCart})
+      : super(key: key);
 
   @override
   _ProductCardState createState() => _ProductCardState(product);
@@ -12,41 +16,86 @@ class ProductCard extends StatefulWidget {
 
 class _ProductCardState extends State<ProductCard> {
   final ProductModel product;
+
   _ProductCardState(this.product);
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width * 0.6;
     return Container(
-      color: Colors.white,
-      height: 240,
-      width: width * 0.6,
-      child: Row(
-        children: [
-          Container(
-              color: Colors.white,
-              height: 120,
-              width: 120,
-              child: CachedNetworkImage(
-                imageUrl: product.image,
-                fit: BoxFit.cover,
-              )),
-          Container(
-            width: width - 120,
-            child: Column(
-              children: [
-                Text(product.title),
-                Text(
-                  product.description,
-                  maxLines: 5,
-                  softWrap: true,
-                  overflow: TextOverflow.fade,
-                ),
-                Text(product.price),
-              ],
-            ),
-          )
-        ],
+      margin: EdgeInsets.symmetric(
+        vertical: 8,
       ),
+      child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 8.0),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              // boxShadow: shadow,
+              borderRadius: BorderRadius.circular(10)),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  CachedNetworkImage(
+                      fit: BoxFit.cover,
+                      height: 180,
+                      width: 180,
+                      imageUrl: product.image),
+                  Expanded(
+                    child: Container(
+                      padding: EdgeInsets.all(12.0),
+                      alignment: Alignment.centerLeft,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Expanded(
+                            flex: 2,
+                            child: Text(
+                              product.title,
+                              textAlign: TextAlign.left,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Container(
+                              padding: const EdgeInsets.only(
+                                  left: 32.0, top: 8.0, bottom: 8.0),
+                              child: Text(
+                                '\$ ${product.price}',
+                                textAlign: TextAlign.center,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 24),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  Column(
+                    children: [
+                      IconButton(
+                          onPressed: () {
+                            Provider.of<CartModel>(context, listen: false)
+                                .updateCart(product.id);
+                          },
+                          icon: Icon(widget.isInCart
+                              ? Icons.check_circle_outline
+                              : Icons.add_circle_outline_rounded))
+                    ],
+                  )
+                ]),
+          )),
     );
   }
 }

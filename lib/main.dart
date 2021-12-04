@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pirai_code_challenge/models/cart_model.dart';
 import 'package:pirai_code_challenge/models/user_model.dart';
 import 'package:pirai_code_challenge/views/LoginFlow/login.dart';
 import 'package:pirai_code_challenge/views/Products/product_view.dart';
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<UserModel>(create: (context) => UserModel()),
+        ChangeNotifierProvider<CartModel>(create: (context) => CartModel()),
       ],
       child: MaterialApp(
         navigatorKey: navigatorKey,
