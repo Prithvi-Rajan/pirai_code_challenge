@@ -1,0 +1,1 @@
+ bool isMobileView(double we) => we < 850;

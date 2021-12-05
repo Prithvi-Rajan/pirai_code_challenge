@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:pirai_code_challenge/models/cart_model.dart';
 import 'package:pirai_code_challenge/models/user_model.dart';
-import 'package:pirai_code_challenge/views/Cart/cart.dart';
+import 'package:pirai_code_challenge/services/products_provider.dart';
 import 'package:pirai_code_challenge/views/LoginFlow/login.dart';
 import 'package:pirai_code_challenge/views/LoginFlow/signup.dart';
-import 'package:pirai_code_challenge/views/Products/product_view.dart';
-import 'package:pirai_code_challenge/views/splashscreen/splashscreen.dart';
+import 'package:pirai_code_challenge/views/home.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -19,24 +18,36 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider<ProductsProvider>(
+            create: (context) => ProductsProvider()),
         ChangeNotifierProvider<UserModel>(create: (context) => UserModel()),
-        ChangeNotifierProvider<CartModel>(create: (context) => CartModel()),
+        ChangeNotifierProxyProvider<UserModel, CartModel>(
+          create: (context) => CartModel(),
+          update: (context, um, cart) {
+            cart ??= CartModel();
+            cart.updateUserModel(um);
+            return cart;
+          },
+        ),
       ],
       child: MaterialApp(
         navigatorKey: navigatorKey,
         title: 'EuCart',
         theme: ThemeData(
+          primarySwatch: Colors.blueGrey,
+          buttonTheme: ButtonThemeData(
+            buttonColor: Color(0xFF0DF5E4),            
+          ),
           scaffoldBackgroundColor: const Color(0xFF1F1A30),
           // buttonTheme: ButtonThemeData(buttonColor: const Color(0xFF0DF5E4)),
           // iconTheme: IconThemeData(color: const Color(0xFF0DF5E4)),
         ),
-        home: ProductView(),
+        home: Home(),
         routes: {
           LoginView.routeName: (context) => LoginView(),
           // SplashScreen.routeName: (context) => SplashScreen(),
           Singup.routeName: (context) => Singup(),
-          ProductView.routeName: (context) => ProductView(),
-          CartView.routeName: (context) => CartView(),
+          Home.routeName: (context) => Home(),
         },
       ),
     );

@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:pirai_code_challenge/main.dart';
 import 'package:pirai_code_challenge/views/LoginFlow/login.dart';
-import 'package:pirai_code_challenge/views/Products/product_view.dart';
+import 'package:pirai_code_challenge/views/home.dart';
 
 class UserModel extends ChangeNotifier {
   User? _currentUser;
@@ -33,7 +33,7 @@ class UserModel extends ChangeNotifier {
         _currentUser = event;
         notifyListeners();
         navigatorKey.currentState
-            ?.pushNamedAndRemoveUntil(ProductView.routeName, (route) => false);
+            ?.pushNamedAndRemoveUntil(Home.routeName, (route) => false);
       }
     });
   }

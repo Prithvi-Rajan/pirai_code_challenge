@@ -87,7 +87,7 @@ class _ProductCardState extends State<ProductCard> {
                       IconButton(
                           onPressed: () {
                             Provider.of<CartModel>(context, listen: false)
-                                .updateCart(product.id);
+                                .updateCart(product);
                           },
                           icon: widget.isInCart
                               ? Icon(

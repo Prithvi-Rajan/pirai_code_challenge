@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pirai_code_challenge/models/user_model.dart';
-import 'package:pirai_code_challenge/services/auth_service.dart';
-import 'package:pirai_code_challenge/views/Cart/cart.dart';
-import 'package:pirai_code_challenge/widgets/app_drawer_action.dart';
+import 'package:pirai_code_challenge/models/app_drawer_action.dart';
 import 'package:provider/provider.dart';
 
 class AppDrawer extends StatefulWidget {
-  const AppDrawer({Key? key}) : super(key: key);
+  final Function(int)? onMenuClicked;
+  final int selectedIndex;
+  const AppDrawer({Key? key, this.onMenuClicked, this.selectedIndex = 0})
+      : super(key: key);
 
   @override
   _AppDrawerState createState() => _AppDrawerState();
@@ -16,28 +17,6 @@ class AppDrawer extends StatefulWidget {
 class _AppDrawerState extends State<AppDrawer> {
   @override
   Widget build(BuildContext context) {
-    final _appDrawerActions = [
-      AppDrawerAction(
-        title: 'Cart',
-        onClick: () {
-          Navigator.pushNamed(context, CartView.routeName);
-        },
-        icon: Icon(
-          Icons.shopping_cart_rounded,
-          color: const Color(0xFF0DF5E4),
-        ),
-      ),
-      AppDrawerAction(
-        title: 'Sign Out',
-        onClick: () {
-          FirebaseAuthService.signOut();
-        },
-        icon: Icon(
-          Icons.logout_rounded,
-          color: const Color(0xFF0DF5E4),
-        ),
-      )
-    ];
     return Drawer(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       child: Container(
@@ -81,9 +60,27 @@ class _AppDrawerState extends State<AppDrawer> {
                 height: 20,
               ),
               ListView.builder(
-                itemCount: _appDrawerActions.length,
+                itemCount: appDrawerActions.length,
                 shrinkWrap: true,
-                itemBuilder: (context, index) => _appDrawerActions[index],
+                itemBuilder: (context, index) {
+                  // return appDrawerActions[index];
+                  return ListTile(
+                    selectedTileColor: Colors.blueGrey,
+                    selected: widget.selectedIndex == index,
+                    title: Text(
+                      appDrawerActions[index].title,
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ),
+                    leading: appDrawerActions[index].icon,
+                    onTap: () {
+                      if (appDrawerActions[index].onClick != null) {
+                        appDrawerActions[index].onClick!();
+                        return;
+                      }
+                      widget.onMenuClicked!(index);
+                    },
+                  );
+                },
               )
             ],
           ),
