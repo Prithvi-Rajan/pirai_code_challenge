@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:pirai_code_challenge/constants.dart';
 import 'package:pirai_code_challenge/models/cart_model.dart';
 import 'package:pirai_code_challenge/views/home.dart';
@@ -40,7 +39,7 @@ class _CartViewState extends State<CartView> {
                       },
                       icon: Icon(Icons.list),
                       label: Text(
-                        "Browse Catalogue",
+                        "Browse Products",
                       ),
                     ),
                   )
@@ -138,7 +137,7 @@ class _CartViewState extends State<CartView> {
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton.icon(
                       onPressed: () {
-                        //TODO
+                        //TODO: checkout
                       },
                       icon: Icon(Icons.card_giftcard),
                       label: Text("Checkout")),
