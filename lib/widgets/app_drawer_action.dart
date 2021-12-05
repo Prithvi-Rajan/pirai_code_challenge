@@ -16,7 +16,7 @@ class AppDrawerAction extends StatelessWidget {
         style: TextStyle(color: Colors.white, fontSize: 18),
       ),
       leading: icon,
-      onTap: () => onClick,
+      onTap: () => onClick(),
     );
   }
 }

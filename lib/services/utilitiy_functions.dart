@@ -11,11 +11,11 @@ void showSnackBar(message) {
   ));
 }
 
-Future<List> getProducts() async {
+Future<List<ProductModel>> getProducts() async {
   final url = 'https://fakestoreapi.com/products';
   final response = await http.get(Uri.parse(url));
   final json = JsonDecoder().convert(response.body);
-  final productsList = [];
+  final List<ProductModel> productsList = [];
   for (var product in json) {
     productsList.add(
       ProductModel(

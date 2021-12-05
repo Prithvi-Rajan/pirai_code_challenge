@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pirai_code_challenge/models/cart_model.dart';
 import 'package:pirai_code_challenge/models/user_model.dart';
+import 'package:pirai_code_challenge/views/Cart/cart.dart';
 import 'package:pirai_code_challenge/views/LoginFlow/login.dart';
 import 'package:pirai_code_challenge/views/LoginFlow/signup.dart';
 import 'package:pirai_code_challenge/views/Products/product_view.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
           // SplashScreen.routeName: (context) => SplashScreen(),
           Singup.routeName: (context) => Singup(),
           ProductView.routeName: (context) => ProductView(),
+          CartView.routeName: (context) => CartView(),
         },
       ),
     );

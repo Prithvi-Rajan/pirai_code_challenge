@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pirai_code_challenge/models/user_model.dart';
 import 'package:pirai_code_challenge/services/auth_service.dart';
+import 'package:pirai_code_challenge/views/Cart/cart.dart';
 import 'package:pirai_code_challenge/widgets/app_drawer_action.dart';
 import 'package:provider/provider.dart';
 
@@ -13,28 +14,30 @@ class AppDrawer extends StatefulWidget {
 }
 
 class _AppDrawerState extends State<AppDrawer> {
-  final _appDrawerActions = [
-    AppDrawerAction(
-      title: 'Cart',
-      onClick: () {},
-      icon: Icon(
-        Icons.shopping_cart_rounded,
-        color: const Color(0xFF0DF5E4),
-      ),
-    ),
-    AppDrawerAction(
-      title: 'Sign Out',
-      onClick: () {
-        FirebaseAuthService.signOut();
-      },
-      icon: Icon(
-        Icons.logout_rounded,
-        color: const Color(0xFF0DF5E4),
-      ),
-    )
-  ];
   @override
   Widget build(BuildContext context) {
+    final _appDrawerActions = [
+      AppDrawerAction(
+        title: 'Cart',
+        onClick: () {
+          Navigator.pushNamed(context, CartView.routeName);
+        },
+        icon: Icon(
+          Icons.shopping_cart_rounded,
+          color: const Color(0xFF0DF5E4),
+        ),
+      ),
+      AppDrawerAction(
+        title: 'Sign Out',
+        onClick: () {
+          FirebaseAuthService.signOut();
+        },
+        icon: Icon(
+          Icons.logout_rounded,
+          color: const Color(0xFF0DF5E4),
+        ),
+      )
+    ];
     return Drawer(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       child: Container(
