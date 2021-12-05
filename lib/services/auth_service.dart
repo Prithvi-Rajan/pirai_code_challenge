@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pirai_code_challenge/models/user_model.dart';
 import 'package:pirai_code_challenge/services/utilitiy_functions.dart';
@@ -6,6 +7,7 @@ import 'package:pirai_code_challenge/main.dart';
 
 class FirebaseAuthService {
   static final auth = FirebaseAuth.instance;
+  static final db = FirebaseFirestore.instance;
   static void loginWithEmailAndPassword(
       {required String email, required String password}) async {
     await auth.setPersistence(Persistence.SESSION);
@@ -29,14 +31,25 @@ class FirebaseAuthService {
       {required String email, required String password, required name}) async {
     await auth.setPersistence(Persistence.SESSION);
     try {
+      await Provider.of<UserModel>(navigatorKey.currentState!.context,
+              listen: false)
+          .cancelListener();
+
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
-      final currentUser = userCredential.user;
+      var currentUser = userCredential.user;
       if (currentUser != null) {
         await currentUser.updateDisplayName(name);
+        currentUser = auth.currentUser!;
+        await db.collection('users').doc(currentUser.uid).set({
+          'uid': currentUser.uid,
+          'name': currentUser.displayName,
+          'email': currentUser.email,
+        });
         Provider.of<UserModel>(navigatorKey.currentState!.context,
-                listen: false)
-            .currentUser = currentUser;
+            listen: false)
+          ..currentUser = currentUser
+          ..addAuthStateListener();
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {

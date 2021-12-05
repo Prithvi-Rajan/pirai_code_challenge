@@ -10,14 +10,15 @@ environment:
 
 dependencies:
   cached_network_image: ^3.2.0
+  cloud_firestore: ^3.1.1
   cupertino_icons: ^1.0.2
   firebase_auth: ^3.2.0
   flutter:
     sdk: flutter
   google_fonts: ^2.1.0
+  provider: null
   simple_animations: ^4.0.1
   supercharged: ^2.1.1
-  provider:
 dev_dependencies:
   flutter_test:
     sdk: flutter

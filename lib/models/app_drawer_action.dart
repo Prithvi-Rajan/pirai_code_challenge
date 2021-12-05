@@ -3,7 +3,7 @@ import 'package:pirai_code_challenge/services/auth_service.dart';
 
 final appDrawerActions = [
   AppDrawerAction(
-    title: 'Catlog',
+    title: 'Products',
     icon: Icon(
       Icons.list,
       color: const Color(0xFF0DF5E4),

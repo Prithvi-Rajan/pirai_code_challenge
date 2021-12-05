@@ -21,6 +21,8 @@ class UserModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void>? cancelListener() => _authStream?.cancel();
+
   Future<void> addAuthStateListener() async {
     await _authStream?.cancel();
     _authStream = FirebaseAuth.instance.authStateChanges().listen((event) {

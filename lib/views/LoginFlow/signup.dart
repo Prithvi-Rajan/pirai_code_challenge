@@ -427,6 +427,7 @@ class _SingupState extends State<Singup> {
                       ),
                     ),
                     style: TextButton.styleFrom(
+                      backgroundColor: const Color(0xFF0DF5E4),
                         padding: const EdgeInsets.symmetric(
                             vertical: 15.0, horizontal: 80),
                         shape: RoundedRectangleBorder(
