@@ -46,4 +46,12 @@ class FirebaseAuthService {
       }
     }
   }
+
+  static void signOut() async {
+    try {
+      await auth.signOut();
+    } catch (e) {
+      showSnackBar(e.toString());
+    }
+  }
 }

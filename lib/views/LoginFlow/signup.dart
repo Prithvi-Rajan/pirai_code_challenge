@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pirai_code_challenge/animation/fade_animation.dart';
 import 'package:pirai_code_challenge/services/auth_service.dart';
-
 import 'login.dart';
 
 enum Field { fullname, Email, password, confirmpassword, phone }
 
 class Singup extends StatefulWidget {
+  static const routeName = '/signup';
   const Singup({Key? key}) : super(key: key);
 
   @override
@@ -427,7 +427,6 @@ class _SingupState extends State<Singup> {
                       ),
                     ),
                     style: TextButton.styleFrom(
-                        backgroundColor: const Color(0xFF0DF5E4),
                         padding: const EdgeInsets.symmetric(
                             vertical: 15.0, horizontal: 80),
                         shape: RoundedRectangleBorder(

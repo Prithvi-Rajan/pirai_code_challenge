@@ -6,7 +6,7 @@ import 'package:pirai_code_challenge/widgets/product_card.dart';
 import 'package:provider/provider.dart';
 
 class ProductView extends StatefulWidget {
-  static const routeName = 'products';
+  static const routeName = '/products';
   const ProductView({Key? key}) : super(key: key);
 
   @override

@@ -89,9 +89,14 @@ class _ProductCardState extends State<ProductCard> {
                             Provider.of<CartModel>(context, listen: false)
                                 .updateCart(product.id);
                           },
-                          icon: Icon(widget.isInCart
-                              ? Icons.check_circle_outline
-                              : Icons.add_circle_outline_rounded))
+                          icon: widget.isInCart
+                              ? Icon(
+                                  Icons.check_circle_outline,
+                                  color: const Color(0xFF0DF5E4),
+                                )
+                              : Icon(
+                                  Icons.add_circle_outline_rounded,
+                                ))
                     ],
                   )
                 ]),

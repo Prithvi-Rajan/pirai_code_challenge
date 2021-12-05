@@ -11,7 +11,7 @@ enum Field {
 }
 
 class LoginView extends StatefulWidget {
-  static const routeName = 'LoginView';
+  static const routeName = '/login';
   @override
   State<LoginView> createState() => _LoginViewState();
 }
@@ -232,10 +232,7 @@ class _LoginViewState extends State<LoginView> {
                         )),
                     GestureDetector(
                       onTap: () {
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (context) {
-                          return const Singup();
-                        }));
+                        Navigator.of(context).pushNamed(Singup.routeName);
                       },
                       child: Text("Sign up",
                           style: GoogleFonts.heebo(

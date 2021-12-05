@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pirai_code_challenge/models/user_model.dart';
+import 'package:pirai_code_challenge/services/auth_service.dart';
+import 'package:pirai_code_challenge/widgets/app_drawer_action.dart';
 import 'package:provider/provider.dart';
 
 class AppDrawer extends StatefulWidget {
@@ -11,6 +13,26 @@ class AppDrawer extends StatefulWidget {
 }
 
 class _AppDrawerState extends State<AppDrawer> {
+  final _appDrawerActions = [
+    AppDrawerAction(
+      title: 'Cart',
+      onClick: () {},
+      icon: Icon(
+        Icons.shopping_cart_rounded,
+        color: const Color(0xFF0DF5E4),
+      ),
+    ),
+    AppDrawerAction(
+      title: 'Sign Out',
+      onClick: () {
+        FirebaseAuthService.signOut();
+      },
+      icon: Icon(
+        Icons.logout_rounded,
+        color: const Color(0xFF0DF5E4),
+      ),
+    )
+  ];
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -32,10 +54,13 @@ class _AppDrawerState extends State<AppDrawer> {
               ),
               CircleAvatar(
                 radius: 60,
+                backgroundColor: const Color(0xFF0DF5E4),
                 child: Text(
                   user.currentUser?.displayName?.substring(0, 1) ?? 'U',
-                  style:
-                      GoogleFonts.cagliostro(fontSize: 48, color: Colors.white),
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.cagliostro(
+                      fontSize: 48,
+                      color: Theme.of(context).scaffoldBackgroundColor),
                 ),
               ),
               const SizedBox(
@@ -43,12 +68,20 @@ class _AppDrawerState extends State<AppDrawer> {
               ),
               Text(
                 user.currentUser?.displayName ?? 'User',
-                style: TextStyle(color: Colors.white, fontSize: 18),
+                style: TextStyle(color: Colors.white, fontSize: 24),
               ),
               Text(
                 user.currentUser?.email ?? 'test@test.com',
-                style: TextStyle(color: Colors.grey, fontSize: 16),
+                style: TextStyle(color: Colors.grey, fontSize: 18),
               ),
+              const SizedBox(
+                height: 20,
+              ),
+              ListView.builder(
+                itemCount: _appDrawerActions.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) => _appDrawerActions[index],
+              )
             ],
           ),
         ),
