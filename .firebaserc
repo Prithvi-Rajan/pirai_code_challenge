@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "pirai-code-challenge"
+  },
+  "targets": {
+    "pirai-code-challenge": {
+      "hosting": {
+        "eucart": [
+          "eucart"
+        ]
+      }
+    }
+  }
+}
