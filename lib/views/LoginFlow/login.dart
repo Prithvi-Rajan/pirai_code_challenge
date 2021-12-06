@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pirai_code_challenge/animation/fade_animation.dart';
 import 'package:pirai_code_challenge/services/auth_service.dart';
+import 'package:pirai_code_challenge/services/utilitiy_functions.dart';
 import 'signup.dart';
 
 enum Field {
@@ -34,9 +35,8 @@ class _LoginViewState extends State<LoginView> {
     return Scaffold(
         body: Center(
       child: SingleChildScrollView(
-        child: SizedBox(
-          width: we,
-          height: he,
+        child: Container(
+          constraints: BoxConstraints(minHeight: 600),
           child: Column(
             children: <Widget>[
               FadeAnimation(
@@ -62,7 +62,7 @@ class _LoginViewState extends State<LoginView> {
                 ),
               ),
               SizedBox(
-                height: he * 0.01,
+                height: 20,
               ),
               FadeAnimation(
                 delay: 1,
@@ -75,15 +75,15 @@ class _LoginViewState extends State<LoginView> {
                 ),
               ),
               SizedBox(
-                height: he * 0.04,
+                height: 20,
               ),
               Form(
                 child: Column(children: [
                   FadeAnimation(
                     delay: 1,
                     child: Container(
-                      width: we * 0.3,
-                      height: he * 0.071,
+                      constraints: BoxConstraints(maxWidth: 300),
+                      height: 55,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.0),
                         color:
@@ -119,13 +119,13 @@ class _LoginViewState extends State<LoginView> {
                     ),
                   ),
                   SizedBox(
-                    height: he * 0.02,
+                    height: 20,
                   ),
                   FadeAnimation(
                     delay: 1,
                     child: Container(
-                      width: we * 0.3,
-                      height: he * 0.071,
+                      constraints: BoxConstraints(maxWidth: 300),
+                      height: 55,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.0),
                           color: selected == Field.password
@@ -182,7 +182,7 @@ class _LoginViewState extends State<LoginView> {
                 ]),
               ),
               SizedBox(
-                height: he * 0.02,
+                height: 20,
               ),
               FadeAnimation(
                 delay: 1,
@@ -209,17 +209,27 @@ class _LoginViewState extends State<LoginView> {
                             borderRadius: BorderRadius.circular(30.0)))),
               ),
               SizedBox(
-                height: he * 0.01,
+                height: 10,
               ),
               FadeAnimation(
                 delay: 1,
-                child: Text("Forgot password?",
-                    style: GoogleFonts.heebo(
-                      color: const Color(0xFF0DF5E4).withOpacity(0.9),
-                      letterSpacing: 0.5,
-                    )),
+                child: InkWell(
+                  onTap: () {
+                    if (validateEmail(emailController.text)) {
+                      FirebaseAuthService.sendRecoveryMail(
+                          email: emailController.text);
+                    } else {
+                      showSnackBar('Enter a valid email ID!');
+                    }
+                  },
+                  child: Text("Forgot password?",
+                      style: GoogleFonts.heebo(
+                        color: const Color(0xFF0DF5E4).withOpacity(0.9),
+                        letterSpacing: 0.5,
+                      )),
+                ),
               ),
-              SizedBox(height: he * 0.12),
+              SizedBox(height: 20),
               FadeAnimation(
                 delay: 1,
                 child: Row(
@@ -243,7 +253,8 @@ class _LoginViewState extends State<LoginView> {
                     ),
                   ],
                 ),
-              )
+              ),
+              SizedBox(height: 20),
             ],
           ),
         ),

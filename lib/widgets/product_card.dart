@@ -16,10 +16,10 @@ class ProductCard extends StatefulWidget {
 
 class _ProductCardState extends State<ProductCard> {
   final ProductModel product;
-
   _ProductCardState(this.product);
   @override
   Widget build(BuildContext context) {
+    bool isMobileView = MediaQuery.of(context).size.width <= 800;
     return Container(
       margin: EdgeInsets.symmetric(
         vertical: 8,
@@ -53,8 +53,8 @@ class _ProductCardState extends State<ProductCard> {
                       borderRadius: BorderRadius.circular(10),
                       child: CachedNetworkImage(
                           fit: BoxFit.cover,
-                          height: 180,
-                          width: 180,
+                          height: isMobileView?120:180,
+                          width: isMobileView?120:180,
                           imageUrl: product.image),
                     ),
                   ),

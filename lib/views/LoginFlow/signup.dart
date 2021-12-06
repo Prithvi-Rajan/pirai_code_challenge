@@ -19,7 +19,8 @@ class _SingupState extends State<Singup> {
   Color enabledtxt = Colors.white;
   Color deaible = Colors.grey;
   Color backgroundColor = const Color(0xFF1F1A30);
-  bool ispasswordev = true;
+  bool showPassword = true;
+  bool showConfirmPassword = true;
   Field? selected;
   final _formKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
@@ -45,17 +46,16 @@ class _SingupState extends State<Singup> {
 
   @override
   Widget build(BuildContext context) {
-    var we = MediaQuery.of(context).size.width;
-    var he = MediaQuery.of(context).size.height;
+    // var we = MediaQuery.of(context).size.width;
+    // var he = MediaQuery.of(context).size.height;
     return Scaffold(
       body: SingleChildScrollView(
-        child: SizedBox(
-          width: we,
-          height: he,
+        child: Container(
+          constraints: BoxConstraints(minHeight: 600),
           child: Column(
             children: <Widget>[
               SizedBox(
-                height: he * 0.05,
+                height: 40,
               ),
               GestureDetector(
                 onTap: () {
@@ -63,7 +63,7 @@ class _SingupState extends State<Singup> {
                 },
                 child: Container(
                   alignment: Alignment.topLeft,
-                  margin: EdgeInsets.only(left: we * 0.04),
+                  margin: EdgeInsets.only(left: 40),
                   child: const Icon(
                     Icons.arrow_back_outlined,
                     color: Colors.white,
@@ -72,7 +72,7 @@ class _SingupState extends State<Singup> {
                 ),
               ),
               SizedBox(
-                height: he * 0.03,
+                height: 40,
               ),
               FadeAnimation(
                 delay: 1,
@@ -97,15 +97,15 @@ class _SingupState extends State<Singup> {
                   ),
                 ),
               ),
-              SizedBox(height: he * 0.07),
+              SizedBox(height: 20),
               Form(
                   key: _formKey,
                   child: Column(children: [
                     FadeAnimation(
                       delay: 1,
                       child: Container(
-                        width: we * 0.3,
-                        height: he * 0.071,
+                        constraints: BoxConstraints(maxWidth: 300),
+                        height: 55,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.0),
                           color: selected == Field.fullname
@@ -152,13 +152,13 @@ class _SingupState extends State<Singup> {
                       ),
                     ),
                     SizedBox(
-                      height: he * 0.02,
+                      height: 20,
                     ),
                     FadeAnimation(
                       delay: 1,
                       child: Container(
-                        width: we * 0.3,
-                        height: he * 0.071,
+                        constraints: BoxConstraints(maxWidth: 300),
+                        height: 55,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.0),
                           color: selected == Field.phone
@@ -205,13 +205,13 @@ class _SingupState extends State<Singup> {
                       ),
                     ),
                     SizedBox(
-                      height: he * 0.02,
+                      height: 20,
                     ),
                     FadeAnimation(
                       delay: 1,
                       child: Container(
-                        width: we * 0.3,
-                        height: he * 0.071,
+                        constraints: BoxConstraints(maxWidth: 300),
+                        height: 55,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.0),
                           color: selected == Field.Email
@@ -258,13 +258,13 @@ class _SingupState extends State<Singup> {
                       ),
                     ),
                     SizedBox(
-                      height: he * 0.02,
+                      height: 20,
                     ),
                     FadeAnimation(
                       delay: 1,
                       child: Container(
-                        width: we * 0.3,
-                        height: he * 0.071,
+                        constraints: BoxConstraints(maxWidth: 300),
+                        height: 55,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20.0),
                             color: selected == Field.password
@@ -295,7 +295,7 @@ class _SingupState extends State<Singup> {
                                     : deaible,
                               ),
                               suffixIcon: IconButton(
-                                icon: ispasswordev
+                                icon: showPassword
                                     ? Icon(
                                         Icons.visibility_off,
                                         color: selected == Field.password
@@ -309,14 +309,14 @@ class _SingupState extends State<Singup> {
                                             : deaible,
                                       ),
                                 onPressed: () => setState(
-                                    () => ispasswordev = !ispasswordev),
+                                    () => showPassword = !showPassword),
                               ),
                               hintText: 'Password',
                               hintStyle: TextStyle(
                                   color: selected == Field.password
                                       ? enabledtxt
                                       : deaible)),
-                          obscureText: ispasswordev,
+                          obscureText: showPassword,
                           style: TextStyle(
                               color: selected == Field.password
                                   ? enabledtxt
@@ -326,13 +326,13 @@ class _SingupState extends State<Singup> {
                       ),
                     ),
                     SizedBox(
-                      height: he * 0.02,
+                      height: 20,
                     ),
                     FadeAnimation(
                       delay: 1,
                       child: Container(
-                        width: we * 0.3,
-                        height: he * 0.071,
+                        constraints: BoxConstraints(maxWidth: 300),
+                        height: 55,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20.0),
                             color: selected == Field.confirmpassword
@@ -363,7 +363,7 @@ class _SingupState extends State<Singup> {
                                     : deaible,
                               ),
                               suffixIcon: IconButton(
-                                icon: ispasswordev
+                                icon: showConfirmPassword
                                     ? Icon(
                                         Icons.visibility_off,
                                         color: selected == Field.confirmpassword
@@ -377,14 +377,14 @@ class _SingupState extends State<Singup> {
                                             : deaible,
                                       ),
                                 onPressed: () => setState(
-                                    () => ispasswordev = !ispasswordev),
+                                    () => showConfirmPassword = !showConfirmPassword),
                               ),
                               hintText: 'Confirm Password',
                               hintStyle: TextStyle(
                                   color: selected == Field.confirmpassword
                                       ? enabledtxt
                                       : deaible)),
-                          obscureText: ispasswordev,
+                          obscureText: showConfirmPassword,
                           style: TextStyle(
                               color: selected == Field.confirmpassword
                                   ? enabledtxt
@@ -395,7 +395,7 @@ class _SingupState extends State<Singup> {
                     ),
                   ])),
               SizedBox(
-                height: he * 0.02,
+                height: 20,
               ),
               FadeAnimation(
                 delay: 1,
@@ -433,7 +433,7 @@ class _SingupState extends State<Singup> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30.0)))),
               ),
-              SizedBox(height: he * 0.13),
+              SizedBox(height:60),
               FadeAnimation(
                 delay: 1,
                 child: Row(
@@ -451,7 +451,7 @@ class _SingupState extends State<Singup> {
                           return LoginView();
                         }));
                       },
-                      child: Text("Sign in",
+                      child: Text(" Sign in",
                           style: GoogleFonts.heebo(
                             color: const Color(0xFF0DF5E4).withOpacity(0.9),
                             fontWeight: FontWeight.bold,

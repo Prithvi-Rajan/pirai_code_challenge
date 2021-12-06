@@ -23,6 +23,8 @@ class FirebaseAuthService {
         showSnackBar('No user found for that email.');
       } else if (e.code == 'wrong-password') {
         showSnackBar('Wrong password provided for that user.');
+      } else {
+        showSnackBar(e.message);
       }
     }
   }
@@ -51,11 +53,18 @@ class FirebaseAuthService {
           ..currentUser = currentUser
           ..addAuthStateListener();
       }
+    } catch (e) {
+      showSnackBar(e.toString());
+    }
+  }
+
+  static Future<void> sendRecoveryMail({required String email}) async {
+    try {
+      await auth.sendPasswordResetEmail(email: email);
+      showSnackBar("Password recovery link sent to $email!");
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         showSnackBar('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        showSnackBar('Wrong password provided for that user.');
       }
     }
   }
