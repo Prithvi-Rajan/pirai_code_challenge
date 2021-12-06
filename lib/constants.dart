@@ -1,1 +1,1 @@
- bool isMobileView(double we) => we < 850;
+bool isMobileView(double we) => we < 800;
