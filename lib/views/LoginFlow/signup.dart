@@ -376,8 +376,8 @@ class _SingupState extends State<Singup> {
                                             ? enabledtxt
                                             : deaible,
                                       ),
-                                onPressed: () => setState(
-                                    () => showConfirmPassword = !showConfirmPassword),
+                                onPressed: () => setState(() =>
+                                    showConfirmPassword = !showConfirmPassword),
                               ),
                               hintText: 'Confirm Password',
                               hintStyle: TextStyle(
@@ -407,7 +407,8 @@ class _SingupState extends State<Singup> {
                           FirebaseAuthService.signupWithEmailAndPassword(
                               email: emailController.text,
                               password: passwordController.text,
-                              name: nameController.text);
+                              name: nameController.text,
+                              context: context);
                         } else {
                           confirmPasswordController.clear();
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -427,13 +428,13 @@ class _SingupState extends State<Singup> {
                       ),
                     ),
                     style: TextButton.styleFrom(
-                      backgroundColor: const Color(0xFF0DF5E4),
+                        backgroundColor: const Color(0xFF0DF5E4),
                         padding: const EdgeInsets.symmetric(
                             vertical: 15.0, horizontal: 80),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30.0)))),
               ),
-              SizedBox(height:60),
+              SizedBox(height: 60),
               FadeAnimation(
                 delay: 1,
                 child: Row(

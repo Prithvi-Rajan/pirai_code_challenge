@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:pirai_code_challenge/main.dart';
 import 'package:pirai_code_challenge/models/user_model.dart';
 import 'package:pirai_code_challenge/services/utilitiy_functions.dart';
 import 'package:provider/provider.dart';
-import 'package:pirai_code_challenge/main.dart';
 
 class FirebaseAuthService {
   static final auth = FirebaseAuth.instance;
@@ -19,42 +20,34 @@ class FirebaseAuthService {
       Provider.of<UserModel>(navigatorKey.currentState!.context, listen: false)
           .currentUser = currentUser;
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        showSnackBar('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        showSnackBar('Wrong password provided for that user.');
-      } else {
-        showSnackBar(e.message);
-      }
+      showSnackBar(e.message ?? '');
     }
   }
 
   static void signupWithEmailAndPassword(
-      {required String email, required String password, required name}) async {
+      {required String email,
+      required String password,
+      required name,
+      required BuildContext context}) async {
     await auth.setPersistence(Persistence.SESSION);
     try {
-      await Provider.of<UserModel>(navigatorKey.currentState!.context,
-              listen: false)
-          .cancelListener();
-
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
       var currentUser = userCredential.user;
       if (currentUser != null) {
         await currentUser.updateDisplayName(name);
-        currentUser = auth.currentUser!;
+        currentUser = auth.currentUser ?? currentUser;
+        Provider.of<UserModel>(navigatorKey.currentState!.context,
+                listen: false)
+            .currentUser = currentUser;
         await db.collection('users').doc(currentUser.uid).set({
           'uid': currentUser.uid,
-          'name': currentUser.displayName,
-          'email': currentUser.email,
+          'name': name,
+          'email': email,
         });
-        Provider.of<UserModel>(navigatorKey.currentState!.context,
-            listen: false)
-          ..currentUser = currentUser
-          ..addAuthStateListener();
       }
-    } catch (e) {
-      showSnackBar(e.toString());
+    } on FirebaseAuthException catch (e) {
+      showSnackBar(e.message ?? '');
     }
   }
 
