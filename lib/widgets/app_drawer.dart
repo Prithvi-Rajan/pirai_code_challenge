@@ -77,6 +77,7 @@ class _AppDrawerState extends State<AppDrawer> {
                         appDrawerActions[index].onClick!();
                         return;
                       }
+                      Scaffold.of(context).openEndDrawer();
                       widget.onMenuClicked!(index);
                     },
                   );

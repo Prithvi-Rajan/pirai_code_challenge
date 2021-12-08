@@ -40,7 +40,7 @@ class _ProductViewState extends State<ProductView> {
             isInCart: cart.isProductInCart(pp.products![index]),
           ),
           gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 600,
+            maxCrossAxisExtent: 800,
             mainAxisExtent: 240,
           ),
         ),

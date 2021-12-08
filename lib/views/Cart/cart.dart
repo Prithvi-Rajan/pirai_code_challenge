@@ -52,29 +52,28 @@ class _CartViewState extends State<CartView> {
             var we = constraints.maxWidth;
             bool _isMobileView = isMobileView(we);
 
-            if(_isMobileView)
-            return SingleChildScrollView(
-              child: Column(
-                children: [
-                  total(cart),
-                  cartItems(cart),
-                ],
-            
-              ),
-            );
-            else
-            return Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: cartItems(cart),
+            if (_isMobileView)
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+                    total(cart),
+                    cartItems(cart),
+                  ],
                 ),
-                Expanded(
-                  child: total(cart),
-                )
-              ],
-            );
+              );
+            else
+              return Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: cartItems(cart),
+                  ),
+                  Expanded(
+                    child: total(cart),
+                  )
+                ],
+              );
           });
       }),
     );
